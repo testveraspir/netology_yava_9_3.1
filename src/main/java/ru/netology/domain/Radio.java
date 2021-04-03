@@ -1,13 +1,17 @@
 package ru.netology.domain;
 
+import lombok.Generated;
+
 public class Radio {
     private int currentNumberRadio;
     private int currentSoundVolume;
 
+    @Generated
     public int getCurrentNumberRadio() {
         return currentNumberRadio;
     }
 
+    @Generated
     public void setCurrentNumberRadio(int currentNumberRadio) {
         if (currentNumberRadio > 9) {
             return;
@@ -18,10 +22,12 @@ public class Radio {
         this.currentNumberRadio = currentNumberRadio;
     }
 
+    @Generated
     public int getCurrentSoundVolume() {
         return currentSoundVolume;
     }
 
+    @Generated
     public void setCurrentSoundVolume(int currentSoundVolume) {
         if (currentSoundVolume < 0) {
             return;
@@ -48,10 +54,12 @@ public class Radio {
         return currentNumberRadio;
     }
 
+    @Generated
     public int inputNumberRadio() {
         return currentNumberRadio;
     }
 
+    @Generated
     public int changeVolumeSoundPlus() {
         if (currentSoundVolume == 10) {
             return currentSoundVolume;
@@ -60,6 +68,7 @@ public class Radio {
         return currentSoundVolume;
     }
 
+    @Generated
     public int changeVolumeSoundMinus() {
         if (currentSoundVolume == 0) {
             return currentSoundVolume;
