@@ -1,19 +1,40 @@
 package ru.netology.domain;
 
-import lombok.Generated;
 
 public class Radio {
+    private int maxNumberRadio;
     private int currentNumberRadio;
     private int currentSoundVolume;
+    private int inputNumberRadio;
 
-    @Generated
+
+    public Radio() {
+    }
+
+    public Radio(int maxNumberRadio) {
+        this.maxNumberRadio = maxNumberRadio;
+    }
+
+    public void setMaxNumberRadio(int maxNumberRadio) {
+        if (maxNumberRadio < 0) {
+            return;
+        }
+        this.maxNumberRadio = maxNumberRadio;
+    }
+
+
     public int getCurrentNumberRadio() {
         return currentNumberRadio;
     }
 
-    @Generated
+
+    public int getMaxNumberRadio() {
+        return maxNumberRadio;
+    }
+
+
     public void setCurrentNumberRadio(int currentNumberRadio) {
-        if (currentNumberRadio > 9) {
+        if (currentNumberRadio > maxNumberRadio) {
             return;
         }
         if (currentNumberRadio < 0) {
@@ -22,24 +43,33 @@ public class Radio {
         this.currentNumberRadio = currentNumberRadio;
     }
 
-    @Generated
+
     public int getCurrentSoundVolume() {
         return currentSoundVolume;
     }
 
-    @Generated
+
     public void setCurrentSoundVolume(int currentSoundVolume) {
         if (currentSoundVolume < 0) {
             return;
         }
-        if (currentSoundVolume > 10) {
+        if (currentSoundVolume > 100) {
             return;
         }
         this.currentSoundVolume = currentSoundVolume;
     }
 
+
+    public int getInputNumberRadio() {
+        return inputNumberRadio;
+    }
+
+    public void setInputNumberRadio(int inputNumberRadio) {
+        this.inputNumberRadio = inputNumberRadio;
+    }
+
     public int clickButtonNext() {
-        if (currentNumberRadio == 9) {
+        if (currentNumberRadio == maxNumberRadio) {
             return 0;
         }
         currentNumberRadio++;
@@ -48,27 +78,31 @@ public class Radio {
 
     public int clickButtonPrev() {
         if (currentNumberRadio == 0) {
-            return 9;
+            return maxNumberRadio;
         }
         currentNumberRadio--;
         return currentNumberRadio;
     }
 
-    @Generated
-    public int inputNumberRadio() {
+
+    public int inputNumberRadio(int inputNumberRadio) {
+        if (inputNumberRadio > maxNumberRadio || inputNumberRadio < 0) {
+            return currentNumberRadio;
+        }
+        currentNumberRadio = inputNumberRadio;
         return currentNumberRadio;
     }
 
-    @Generated
+
     public int changeVolumeSoundPlus() {
-        if (currentSoundVolume == 10) {
+        if (currentSoundVolume == 100) {
             return currentSoundVolume;
         }
         currentSoundVolume++;
         return currentSoundVolume;
     }
 
-    @Generated
+
     public int changeVolumeSoundMinus() {
         if (currentSoundVolume == 0) {
             return currentSoundVolume;
