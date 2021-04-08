@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
-    //проверяем работу кнопки Next, переключение с 9 на 0
+    //проверяем работу кнопки Next, переключение с максим кол-вом радиостанции на 0
     @Test
     void clickNextWith9on0() {
         Radio radio1 = new Radio();
-        radio1.setCurrentNumberRadio(9);
+        radio1.setCurrentNumberRadio(10);
         int clickNext = radio1.clickButtonNext();
         assertEquals(0, clickNext);
     }
@@ -23,11 +23,11 @@ class RadioTest {
         assertEquals(1, clickNext);
     }
 
-    //проверяем неверное значение исходного номера радио (> 9)
+    //проверяем неверное значение исходного номера радио, больше максимального
     @Test
     void invalidClickNext10() {
         Radio radio1 = new Radio();
-        radio1.setCurrentNumberRadio(10);
+        radio1.setCurrentNumberRadio(11);
         int clickNext = radio1.clickButtonNext();
         assertEquals(1, clickNext);
     }
@@ -41,31 +41,31 @@ class RadioTest {
         assertEquals(1, clickNext);
     }
 
-    //проверяем работу кнопки Prev, переключение с 0 на 9
+    //проверяем работу кнопки Prev, переключение с 0 на максимальное кол-во радиостанций
     @Test
     void clickPrevWith0on9() {
         Radio radio1 = new Radio();
         radio1.setCurrentNumberRadio(0);
         int clickPrev = radio1.clickButtonPrev();
-        assertEquals(9, clickPrev);
+        assertEquals(10, clickPrev);
     }
 
-    // проверяем работу кнопки Prev, валидное переключение с 9 на 8
+    // проверяем работу кнопки Prev, валидное переключение с максим.номера радиостанции на предыдущую
     @Test
     void clickPrevWith9on8() {
         Radio radio1 = new Radio();
-        radio1.setCurrentNumberRadio(9);
+        radio1.setCurrentNumberRadio(10);
         int clickPrev = radio1.clickButtonPrev();
-        assertEquals(8, clickPrev);
+        assertEquals(9, clickPrev);
     }
 
-    // проверяем ввод номера радио, граничное значение 9
+    // проверяем ввод номера радио, граничное значение 10
     @Test
     void validInputNumberRadio9() {
         Radio radio1 = new Radio();
-        radio1.setCurrentNumberRadio(9);
+        radio1.setCurrentNumberRadio(10);
         int inputNumber = radio1.inputNumberRadio();
-        assertEquals(9, inputNumber);
+        assertEquals(10, inputNumber);
     }
 
     //проверяем ввод номера радио, граничное значение 0
@@ -86,11 +86,11 @@ class RadioTest {
         assertEquals(0, inputNumber);
     }
 
-    //проверяем ввод невалидного номера радио: 10
+    //проверяем ввод невалидного номера радио: 11
     @Test
     void invalidInputNumberRadioMore9() {
         Radio radio1 = new Radio();
-        radio1.setCurrentNumberRadio(10);
+        radio1.setCurrentNumberRadio(11);
         int inputNumber = radio1.inputNumberRadio();
         assertEquals(0, inputNumber);
     }
@@ -99,9 +99,9 @@ class RadioTest {
     @Test
     void clickSoundPlusMore10() {
         Radio radio1 = new Radio();
-        radio1.setCurrentSoundVolume(10);
+        radio1.setCurrentSoundVolume(100);
         int clickPlus = radio1.changeVolumeSoundPlus();
-        assertEquals(10, clickPlus);
+        assertEquals(100, clickPlus);
     }
 
     //проверяем верное увеличение громкости звука
@@ -126,16 +126,16 @@ class RadioTest {
     @Test
     void clickSoundMinusLess10() {
         Radio radio1 = new Radio();
-        radio1.setCurrentSoundVolume(10);
+        radio1.setCurrentSoundVolume(100);
         int clickMinus = radio1.changeVolumeSoundMinus();
-        assertEquals(9, clickMinus);
+        assertEquals(99, clickMinus);
     }
 
-    // проверяем выполнение условия при громкости звука больше 10
+    // проверяем выполнение условия при громкости звука больше 100
     @Test
     void invalidClickSoundPlusMore10() {
         Radio radio1 = new Radio();
-        radio1.setCurrentSoundVolume(11);
+        radio1.setCurrentSoundVolume(101);
         int clickPlus = radio1.changeVolumeSoundPlus();
         assertEquals(1, clickPlus);
     }
