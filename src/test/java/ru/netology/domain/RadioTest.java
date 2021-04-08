@@ -7,17 +7,42 @@ import static org.junit.jupiter.api.Assertions.*;
 class RadioTest {
     //проверяем работу кнопки Next, переключение с максим кол-вом радиостанции на 0
     @Test
-    void clickNextWith9on0() {
-        Radio radio1 = new Radio();
-        radio1.setCurrentNumberRadio(10);
+    void clickNextWithMaxOn0() {
+        Radio radio1 = new Radio(10);
         int clickNext = radio1.clickButtonNext();
+        assertEquals(1, clickNext);
+    }
+
+    //установка макисмального количество радиостанций < 0
+    @Test
+    void maxNumberRadioLess0() {
+        Radio radio1 = new Radio(10);
+        radio1.setMaxNumberRadio(-1);
+        int maxNumber = radio1.getMaxNumberRadio();
+        assertEquals(10, maxNumber);
+    }
+
+    //установка макисмального количество радиостанций > 0
+    @Test
+    void validMaxNumberRadio() {
+        Radio radio1 = new Radio(10);
+        radio1.setMaxNumberRadio(11);
+        int maxNumber = radio1.getMaxNumberRadio();
+        assertEquals(11, maxNumber);
+    }
+//работа кнопки Next, если текущий номер радиостанции равен максимальному номеру радиостанции
+    @Test
+    void currentNumberRadioEquallyMaxRadio(){
+        Radio radio1=new Radio(10);
+        radio1.setCurrentNumberRadio(10);
+        int clickNext=radio1.clickButtonNext();
         assertEquals(0, clickNext);
     }
 
     //проверяем работу кнопки Next, валидное переключение с 0 на 1
     @Test
     void clickNextWith0on1() {
-        Radio radio1 = new Radio();
+        Radio radio1 = new Radio(10);
         radio1.setCurrentNumberRadio(0);
         int clickNext = radio1.clickButtonNext();
         assertEquals(1, clickNext);
@@ -26,7 +51,7 @@ class RadioTest {
     //проверяем неверное значение исходного номера радио, больше максимального
     @Test
     void invalidClickNext10() {
-        Radio radio1 = new Radio();
+        Radio radio1 = new Radio(10);
         radio1.setCurrentNumberRadio(11);
         int clickNext = radio1.clickButtonNext();
         assertEquals(1, clickNext);
@@ -35,7 +60,7 @@ class RadioTest {
     //проверяем неверное значение исходного номера радио (< 0)
     @Test
     void invalidClickNextNumberLess0() {
-        Radio radio1 = new Radio();
+        Radio radio1 = new Radio(10);
         radio1.setCurrentNumberRadio(-1);
         int clickNext = radio1.clickButtonNext();
         assertEquals(1, clickNext);
@@ -43,8 +68,8 @@ class RadioTest {
 
     //проверяем работу кнопки Prev, переключение с 0 на максимальное кол-во радиостанций
     @Test
-    void clickPrevWith0on9() {
-        Radio radio1 = new Radio();
+    void clickPrevWith0onMax() {
+        Radio radio1 = new Radio(10);
         radio1.setCurrentNumberRadio(0);
         int clickPrev = radio1.clickButtonPrev();
         assertEquals(10, clickPrev);
@@ -52,19 +77,18 @@ class RadioTest {
 
     // проверяем работу кнопки Prev, валидное переключение с максим.номера радиостанции на предыдущую
     @Test
-    void clickPrevWith9on8() {
-        Radio radio1 = new Radio();
+    void clickPrevWithMax() {
+        Radio radio1 = new Radio(10);
         radio1.setCurrentNumberRadio(10);
         int clickPrev = radio1.clickButtonPrev();
         assertEquals(9, clickPrev);
     }
 
-    // проверяем ввод номера радио, граничное значение 10
+    // проверяем ввод номера радио, граничное значение max
     @Test
     void validInputNumberRadio9() {
-        Radio radio1 = new Radio();
-        radio1.setCurrentNumberRadio(10);
-        int inputNumber = radio1.inputNumberRadio();
+        Radio radio1 = new Radio(10);
+        int inputNumber = radio1.inputNumberRadio(10);
         assertEquals(10, inputNumber);
     }
 
@@ -72,32 +96,29 @@ class RadioTest {
     @Test
     void validInputNumberRadio0() {
         Radio radio1 = new Radio();
-        radio1.setCurrentNumberRadio(0);
-        int inputNumber = radio1.inputNumberRadio();
+        int inputNumber = radio1.inputNumberRadio(0);
         assertEquals(0, inputNumber);
     }
 
     // проверяем ввод невалидного номера радио: -1
     @Test
     void invalidInputNumberRadioLess0() {
-        Radio radio1 = new Radio();
-        radio1.setCurrentNumberRadio(-1);
-        int inputNumber = radio1.inputNumberRadio();
+        Radio radio1 = new Radio(10);
+        int inputNumber = radio1.inputNumberRadio(-1);
         assertEquals(0, inputNumber);
     }
 
-    //проверяем ввод невалидного номера радио: 11
+    //проверяем ввод невалидного номера радио: больше максимального кол-во радиостанций
     @Test
     void invalidInputNumberRadioMore9() {
-        Radio radio1 = new Radio();
-        radio1.setCurrentNumberRadio(11);
-        int inputNumber = radio1.inputNumberRadio();
+        Radio radio1 = new Radio(10);
+        int inputNumber = radio1.inputNumberRadio(11);
         assertEquals(0, inputNumber);
     }
 
     //проверяем увеличение громкости звука при максимальном значение
     @Test
-    void clickSoundPlusMore10() {
+    void clickSoundPlusMore100() {
         Radio radio1 = new Radio();
         radio1.setCurrentSoundVolume(100);
         int clickPlus = radio1.changeVolumeSoundPlus();
@@ -124,7 +145,7 @@ class RadioTest {
 
     // проверяем верное умешьшение громкости звука
     @Test
-    void clickSoundMinusLess10() {
+    void clickSoundMinusLess100() {
         Radio radio1 = new Radio();
         radio1.setCurrentSoundVolume(100);
         int clickMinus = radio1.changeVolumeSoundMinus();
@@ -133,7 +154,7 @@ class RadioTest {
 
     // проверяем выполнение условия при громкости звука больше 100
     @Test
-    void invalidClickSoundPlusMore10() {
+    void invalidClickSoundPlusMore100() {
         Radio radio1 = new Radio();
         radio1.setCurrentSoundVolume(101);
         int clickPlus = radio1.changeVolumeSoundPlus();
