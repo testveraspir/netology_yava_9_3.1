@@ -1,5 +1,12 @@
 package ru.netology.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@NoArgsConstructor
 
 public class Radio {
     private int maxNumberRadio;
@@ -7,9 +14,6 @@ public class Radio {
     private int currentSoundVolume;
     private int inputNumberRadio;
 
-
-    public Radio() {
-    }
 
     public Radio(int maxNumberRadio) {
         this.maxNumberRadio = maxNumberRadio;
@@ -20,16 +24,6 @@ public class Radio {
             return;
         }
         this.maxNumberRadio = maxNumberRadio;
-    }
-
-
-    public int getCurrentNumberRadio() {
-        return currentNumberRadio;
-    }
-
-
-    public int getMaxNumberRadio() {
-        return maxNumberRadio;
     }
 
 
@@ -44,11 +38,6 @@ public class Radio {
     }
 
 
-    public int getCurrentSoundVolume() {
-        return currentSoundVolume;
-    }
-
-
     public void setCurrentSoundVolume(int currentSoundVolume) {
         if (currentSoundVolume < 0) {
             return;
@@ -59,14 +48,6 @@ public class Radio {
         this.currentSoundVolume = currentSoundVolume;
     }
 
-
-    public int getInputNumberRadio() {
-        return inputNumberRadio;
-    }
-
-    public void setInputNumberRadio(int inputNumberRadio) {
-        this.inputNumberRadio = inputNumberRadio;
-    }
 
     public int clickButtonNext() {
         if (currentNumberRadio == maxNumberRadio) {
